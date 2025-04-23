@@ -62,9 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ]);
                     break;
                 case 'professors':
-                    $stmt = $conn->prepare("INSERT INTO ENSEIGNANT (nom, specialite) VALUES (?, ?)");
+                    $stmt = $conn->prepare("INSERT INTO ENSEIGNANT (prenom , nom, tel, fonction) VALUES (?, ?, ?, ?)");
                     $stmt->execute([
+                        $_POST['prenom'],
                         $_POST['nom'],
+                        $_POST['tele'],
                         $_POST['specialite']
                     ]);
                     break;
@@ -89,10 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $stmt = $conn->prepare("DELETE FROM COURS WHERE num_cours = ?");
                     break;
                 case 'professors':
-                    $stmt = $conn->prepare("DELETE FROM ENSEIGNANT WHERE num_prof = ?");
+                    $stmt = $conn->prepare("DELETE FROM ENSEIGNANT WHERE num_enseignant = ?");
                     break;
                 case 'students':
-                    $stmt = $conn->prepare("DELETE FROM eleve WHERE num_eleve = ?");
+                    $stmt = $conn->prepare("DELETE FROM eleve WHERE id_eleve = ?");
                     break;
             }
             $stmt->execute([$id]);
@@ -115,15 +117,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ]);
                     break;
                 case 'professors':
-                    $stmt = $conn->prepare("UPDATE ENSEIGNANT SET nom = ?, specialite = ? WHERE num_prof = ?");
+                    $stmt = $conn->prepare("UPDATE ENSEIGNANT SET prenom = ? , nom = ?, tel = ? ,fonction = ? WHERE num_enseignant = ?");
                     $stmt->execute([
+                        $_POST['prenom'],
                         $_POST['nom'],
+                        $_POST['tele'],
                         $_POST['specialite'],
                         $id
                     ]);
                     break;
                 case 'students':
-                    $stmt = $conn->prepare("UPDATE eleve SET nom = ?, prenom = ?, annee = ? WHERE num_eleve = ?");
+                    $stmt = $conn->prepare("UPDATE eleve SET nom = ?, prenom = ?, annee = ? WHERE id_eleve = ?");
                     $stmt->execute([
                         $_POST['nom'],
                         $_POST['prenom'],

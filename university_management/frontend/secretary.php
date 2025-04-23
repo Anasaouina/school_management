@@ -82,6 +82,8 @@ require('../config/db.php');
                         <tr>
                             <th class="p-2 border-b">ID</th>
                             <th class="p-2 border-b">Name</th>
+                            <th class="p-2 border-b">surname</th>
+                            <th class="p-2 border-b">telephone</th>
                             <th class="p-2 border-b">Speciality</th>
                             <th class="p-2 border-b">Actions</th>
                         </tr>
@@ -161,18 +163,18 @@ require('../config/db.php');
                 const listElement = document.getElementById(elementId);
                 listElement.innerHTML = data.map(item => `
                     <tr>
-                        <td class="p-2 border-b">${item.num_cours || item.num_prof || item.id_eleve}</td>
-                        <td class="p-2 border-b">${item.titre || item.nom || item.prenom}</td>
-                        <td class="p-2 border-b">${item.description || item.specialite || item.nom}</td>
-                        <td class="p-2 border-b">${item.nb_heures || '' ||item.annee}</td>
-                        <td class="p-2 border-b">${item.type_cours || ''}</td>
+                        <td class="p-2 border-b">${item.num_cours || item.num_enseignant || item.id_eleve}</td>
+                        <td class="p-2 border-b">${item.titre || item.prenom || item.prenom}</td>
+                        <td class="p-2 border-b">${item.description || item.nom  || item.nom}</td>
+                        <td class="p-2 border-b">${item.nb_heures || item.tel  ||item.annee}</td>
+                        <td class="p-2 border-b">${item.type_cours || item.fonction || ''}</td>
                         <td class="p-2 border-b">
                             <form method="POST" action="../backend/secre.php" style="display: inline;">
                                 <input type="hidden" name="entity" value="${endpoint.split('=')[1]}">
-                                <input type="hidden" name="delete" value="${item.num_cours || item.num_prof || item.num_eleve}">
+                                <input type="hidden" name="delete" value="${item.num_cours || item.num_enseignant|| item.id_eleve}">
                                 <button type="submit" class="bg-red-500 text-white p-1 rounded">Delete</button>
                             </form>
-                            <button onclick="editItem('${endpoint}', ${item.num_cours || item.num_prof || item.num_eleve})" class="bg-yellow-500 text-white p-1 rounded">Edit</button>
+                            <button onclick="editItem('${endpoint}', ${item.num_cours || item.num_enseignant || item.id_eleve})" class="bg-yellow-500 text-white p-1 rounded">Edit</button>
                         </td>
                     </tr>
                 `).join('');
@@ -213,7 +215,9 @@ require('../config/db.php');
                                 <input type="hidden" name="update" value="1">
                                 <input type="hidden" name="id" value="${id}">
                                 <input type="text" name="nom" value="${item.nom}" class="w-full p-2 mb-4 border rounded" required>
-                                <input type="text" name="specialite" value="${item.specialite}" class="w-full p-2 mb-4 border rounded" required>
+                                <input type="text" name="prenom" value="${item.prenom}" class="w-full p-2 mb-4 border rounded" required>
+                                <input type="text" name="tele" value="${item.tel}" class="w-full p-2 mb-4 border rounded" required>
+                                <input type="text" name="specialite" value="${item.fonction}" class="w-full p-2 mb-4 border rounded" required>
                                 <button type="submit" class="bg-blue-500 text-white p-2 rounded">Update</button>
                             </form>
                         `;

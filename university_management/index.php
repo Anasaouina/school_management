@@ -10,15 +10,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Vérification des identifiants
     if ($username === 'user_secretaire' && $password === 'password') {
         $_SESSION['role'] = 'secretaire';
-        header('Location: secretary_dashboard.php');
+        header('Location: ./frontend/secretary.php');
         exit();
     } elseif ($username === 'user_enseignant' && $password === 'password') {
         $_SESSION['role'] = 'professor';
-        header('Location: professor_dashboard.php');
+        header('Location: ./frontend/professor.php');
         exit();
     } elseif ($username === 'user_eleve' && $password === 'password') {
         $_SESSION['role'] = 'student';
-        header('Location: student_dashboard.php');
+        header('Location: ./frontend/student.php');
         exit();
     } else {
         $error = 'Identifiants incorrects';
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         <?php endif; ?>
         
-        <form method="POST" action="login.php">
+        <form method="POST" action="index.php">
             <div class="mb-4">
                 <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" required
